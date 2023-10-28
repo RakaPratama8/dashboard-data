@@ -73,7 +73,7 @@ all_df = pd.read_csv("all_data.csv")
 datetime_columns = ["order_date", "delivery_date"]
 all_df.sort_values(by="order_date", inplace=True)
 all_df.reset_index(inplace=True)
- 
+
 for column in datetime_columns:
     all_df[column] = pd.to_datetime(all_df[column])
 
@@ -91,7 +91,7 @@ with st.sidebar:
 
 # %%
 main_df = all_df[(all_df["order_date"] >= str(start_date))&
-                 (all_df["order_date"] <= str(end_date))]
+                (all_df["order_date"] <= str(end_date))]
 
 daily_orders_df = create_daily_orders_df(main_df)
 sum_order_items_df = create_sum_order_items_df(main_df)
@@ -120,7 +120,7 @@ ax.plot(
     daily_orders_df["order_count"],
     marker="o",
     linewidth=2,
-    color="#90CAF9"
+    color="#ff4f4f"
 )
 
 ax.tick_params(axis='x', labelsize=15)
@@ -130,18 +130,18 @@ st.pyplot(fig)
 
 # %%
 st.subheader("Best & Worst Performing Product")
- 
+
 fig, ax = plt.subplots(nrows=1, ncols=2, figsize=(35, 15))
- 
-colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
- 
+
+colors = ["#ff4f4f", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+
 sns.barplot(x="quantity_x", y="product_name", data=sum_order_items_df.head(5), palette=colors, ax=ax[0])
 ax[0].set_ylabel(None)
 ax[0].set_xlabel("Number of Sales", fontsize=30)
 ax[0].set_title("Best Performing Product", loc="center", fontsize=50)
 ax[0].tick_params(axis='y', labelsize=35)
 ax[0].tick_params(axis='x', labelsize=30)
- 
+
 sns.barplot(x="quantity_x", y="product_name", data=sum_order_items_df.sort_values(by="quantity_x", ascending=True).head(5), palette=colors, ax=ax[1])
 ax[1].set_ylabel(None)
 ax[1].set_xlabel("Number of Sales", fontsize=30)
@@ -151,7 +151,7 @@ ax[1].yaxis.tick_right()
 ax[1].set_title("Worst Performing Product", loc="center", fontsize=50)
 ax[1].tick_params(axis='y', labelsize=35)
 ax[1].tick_params(axis='x', labelsize=30)
- 
+
 st.pyplot(fig)
 
 # %%
@@ -179,7 +179,7 @@ with col1:
 with col2:
     fig, ax = plt.subplots(figsize=(20, 10))
     
-    colors = ["#D3D3D3", "#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+    colors = ["#D3D3D3", "#ff4f4f", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
  
     sns.barplot(
         y="customer_count", 
@@ -193,10 +193,11 @@ with col2:
     ax.set_xlabel(None)
     ax.tick_params(axis='x', labelsize=35)
     ax.tick_params(axis='y', labelsize=30)
+    plt.xticks(rotation='vertical')
     st.pyplot(fig)
- 
+
 fig, ax = plt.subplots(figsize=(20, 10))
-colors = ["#90CAF9", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
+colors = ["#ff4f4f", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3", "#D3D3D3"]
 sns.barplot(
     x="customer_count", 
     y="state",
@@ -229,7 +230,7 @@ with col3:
     st.metric(label="Average Monetary", value=avg_monetary)
 
 fig, ax = plt.subplots(nrows=1, ncols=3, figsize=(35,15))
-colors = ["#90CAF9", "#90CAF9", "#90CAF9", "#90CAF9", "#90CAF9"]
+colors = ["#ff4f4f", "#ff4f4f", "#ff4f4f", "#ff4f4f", "#ff4f4f"]
 
 sns.barplot(y="recency", x="customer_id", data=rfm_df.sort_values(by="recency", ascending=True).head(5), palette=colors, ax=ax[0])
 ax[0].set_ylabel(None)
